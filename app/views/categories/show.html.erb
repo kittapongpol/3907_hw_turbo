@@ -1,0 +1,7 @@
+<h2>Category Details</h2>
+<% if @category.present? %>
+  <h1><%= @category.name %></h1>
+  <!-- เพิ่มรายละเอียดอื่น ๆ ของหมวดหมู่ที่นี่ -->
+<% else %>
+  <p>Category not found.</p> <!-- ข้อความเมื่อไม่พบหมวดหมู่ -->
+<% end %>

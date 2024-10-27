@@ -1,0 +1,56 @@
+<h1>Tasks</h1>
+
+<%= form_with(model: @task, local: true) do |form| %>
+  <div>
+    <%= form.label :status, "ใส่ข้อความ" %>
+    <%= form.text_field :status %>
+    <%= form.submit "สร้างข้อความ" %>
+  </div>
+<% end %>
+
+<h2>ไม่พบข้อมูล</h2>
+<ul>
+  <% if @tasks.present? %>
+    <% @tasks.each do |task| %>
+      <li>
+        <%= task.status %>
+        <%= link_to 'Mark as Complete', complete_task_path(task), method: :post %>
+        <%= link_to 'Edit', edit_task_path(task) %>
+        <%= link_to 'Delete', task_path(task), method: :delete, data: { confirm: 'Are you sure?' } %>
+      </li>
+    <% end %>
+  <% else %>
+    <li>ไม่มีข้อมูล</li>
+  <% end %>
+</ul>
+
+<h2>Categories ทั้งหมด</h2>
+<ul>
+  <% if @categories.present? %>
+    <% @categories.each do |category| %>
+      <li>
+        <%= category.name %>
+        <%= link_to 'Edit', edit_category_path(category) %>
+        <%= link_to 'Delete', category_path(category), method: :delete, data: { confirm: 'Are you sure?' } %>
+        <ul>
+          <% category.tasks.each do |task| %>
+            <li>
+              <%= task.status %>
+              <%= link_to 'Mark as Complete', complete_task_path(task), method: :post %>
+              <%= link_to 'Edit', edit_task_path(task) %>
+              <%= link_to 'Delete', task_path(task), method: :delete, data: { confirm: 'Are you sure?' } %>
+            </li>
+          <% end %>
+        </ul>
+      </li>
+    <% end %>
+  <% else %>
+    <li>ไม่มีข้อมูลcategories</li>
+  <% end %>
+</ul>
+
+<% if @category.present? %>
+  <h1>Tasks in <%= @category.name %></h1>
+<% else %>
+  <h1>หาCategoryไม่เจอ</h1>
+<% end %>
